@@ -1,12 +1,12 @@
 module Main (main) where
 
-import HangulQuiz.Data (pairs)
+import HangulQuiz.Quiz (allPairs)
 import Data.List (lookup)
 import System.Exit (exitFailure)
 
 main :: IO ()
 main = do
-  let count = length pairs
+  let count = length allPairs
   if count /= 11172
     then do
       putStrLn ("Expected 11172 syllables, got " ++ show count)
@@ -17,7 +17,7 @@ main = do
   putStrLn "All tests passed."
   where
     check s r =
-      case lookup s pairs of
+      case lookup s allPairs of
         Just v | v == r -> return ()
         _ -> do
           putStrLn ("Incorrect romanization for " ++ s)
