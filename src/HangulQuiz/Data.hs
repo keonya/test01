@@ -1,6 +1,16 @@
-module HangulQuiz.Data (pairs, romanize) where
+module HangulQuiz.Data
+  ( Pair(..)
+  , pairs
+  , romanize
+  ) where
 
 import Data.Char (chr)
+
+-- | Represents a Hangul syllable and its transcription.
+data Pair = Pair
+  { syllable     :: String
+  , transcription :: String
+  } deriving (Eq, Show)
 
 initials :: [String]
 initials =
@@ -17,9 +27,11 @@ finals =
 base :: Int
 base = 0xAC00
 
-pairs :: [(String,String)]
-pairs = [ ([chr (base + off)], romanize off) | off <- [0 .. 11171] ]
+-- | Complete list of Hangul syllables with Latin transcriptions.
+pairs :: [Pair]
+pairs = [ Pair [chr (base + off)] (romanize off) | off <- [0 .. 11171] ]
 
+-- | Romanize a Hangul syllable by offset.
 romanize :: Int -> String
 romanize off =
   let (l, mf) = off `divMod` 588
