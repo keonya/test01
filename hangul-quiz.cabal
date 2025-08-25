@@ -1,0 +1,21 @@
+cabal-version:       2.4
+name:                hangul-quiz
+version:             0.1.0.0
+build-type:          Simple
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     HangulQuiz.Data, HangulQuiz.Quiz
+  build-depends:       base >=4.7 && <5,
+                       random
+  default-language:    Haskell2010
+
+test-suite spec
+  type:              exitcode-stdio-1.0
+  hs-source-dirs:    test
+  main-is:           Spec.hs
+  build-depends:     base,
+                     hangul-quiz,
+                     hspec,
+                     random
+  default-language:  Haskell2010

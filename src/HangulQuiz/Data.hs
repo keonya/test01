@@ -1,4 +1,4 @@
-module HangulQuiz.Data (pairs) where
+module HangulQuiz.Data (pairs, romanize) where
 
 import Data.Char (chr)
 
