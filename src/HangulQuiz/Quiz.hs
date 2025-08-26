@@ -1,5 +1,6 @@
 module HangulQuiz.Quiz
   ( Question(..)
+  , Direction(..)
   , randomPair
   , randomQuestion
   , checkAnswer
@@ -16,15 +17,24 @@ data Question
   | AskSyllable Pair      -- ^ Show a transcription and ask for the syllable.
   deriving (Eq, Show)
 
+-- | Choose which kind of question to ask.
+data Direction
+  = ToTranscription -- ^ Ask for the transcription given a syllable.
+  | ToSyllable      -- ^ Ask for the syllable given a transcription.
+  | Both            -- ^ Ask in both directions randomly.
+  deriving (Eq, Show)
+
 -- | Pick a random syllable/transcription pair from the list.
 randomPair :: StdGen -> (Pair, StdGen)
 randomPair gen =
   let (idx, gen') = randomR (0, length pairs - 1) gen
   in (pairs !! idx, gen')
 
--- | Pick randomly whether to ask for the transcription or the syllable.
-randomQuestion :: StdGen -> Pair -> (Question, StdGen)
-randomQuestion gen p =
+-- | Pick a question according to the desired direction.
+randomQuestion :: StdGen -> Pair -> Direction -> (Question, StdGen)
+randomQuestion gen p ToTranscription = (AskTranscription p, gen)
+randomQuestion gen p ToSyllable      = (AskSyllable p, gen)
+randomQuestion gen p Both =
   let (b, gen') = randomR (0, 1 :: Int) gen
   in (if b == 0 then AskTranscription p else AskSyllable p, gen')
 
