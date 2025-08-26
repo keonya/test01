@@ -30,7 +30,7 @@ jobs:
         run: cabal update
 
       - name: Build
-        run: cabal build --jobs=${{ env.BUILD_JOBS || '' }}
+        run: cabal build ${BUILD_JOBS:+--jobs=$BUILD_JOBS}
 
       - name: Run tests
         run: cabal test --test-show-details=direct
