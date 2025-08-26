@@ -24,10 +24,14 @@ spec = do
       fst (randomPair (mkStdGen 0)) `shouldSatisfy` (`elem` pairs)
   describe "randomQuestion" $ do
     let p = head pairs
-    it "asks transcription when random is 0" $
-      fst (randomQuestion (mkStdGen 0) p) `shouldBe` AskTranscription p
-    it "asks syllable when random is 1" $
-      fst (randomQuestion (mkStdGen 1) p) `shouldBe` AskSyllable p
+    it "asks transcription when random is 0 in both mode" $
+      fst (randomQuestion (mkStdGen 0) p Both) `shouldBe` AskTranscription p
+    it "asks syllable when random is 1 in both mode" $
+      fst (randomQuestion (mkStdGen 1) p Both) `shouldBe` AskSyllable p
+    it "always asks transcription in ToTranscription mode" $
+      fst (randomQuestion (mkStdGen 0) p ToTranscription) `shouldBe` AskTranscription p
+    it "always asks syllable in ToSyllable mode" $
+      fst (randomQuestion (mkStdGen 0) p ToSyllable) `shouldBe` AskSyllable p
   describe "prompt and correctAnswer" $ do
     let p = Pair "가" "ga"
     it "shows syllable when asking transcription" $

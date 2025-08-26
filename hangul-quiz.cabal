@@ -57,7 +57,7 @@ library
     import:           warnings
     hs-source-dirs:   src
     exposed-modules:  HangulQuiz.Data, HangulQuiz.Quiz
-    build-depends:    base ^>=4.18.0.0,
+    build-depends:    base >=4.17 && <4.19,
                       random
     default-language: Haskell2010
 
@@ -65,7 +65,7 @@ executable hangul-quiz
     import:           warnings
     hs-source-dirs:   app
     main-is:          Main.hs
-    build-depends:    base ^>=4.18.0.0,
+    build-depends:    base >=4.17 && <4.19,
                       random,
                       hangul-quiz
     default-language: Haskell2010
@@ -75,7 +75,7 @@ test-suite hangul-quiz-test
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Spec.hs
-    build-depends:    base ^>=4.18.0.0,
+    build-depends:    base >=4.17 && <4.19,
                       hspec,
                       QuickCheck,
                       random,
